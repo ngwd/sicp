@@ -1,0 +1,42 @@
+#lang scheme
+
+(display "2.29") (newline)
+(define (make-mobile left right)
+    (list left right)
+)
+(define (make-branch length structure)
+    (list length structure)
+)
+
+(define left-branch car)
+(define right-branch cadr)
+
+(define lb (make-branch 5 7))
+(define rb (make-branch 7 5))
+(define m  (make-mobile lb rb))
+
+(display (left-branch  m)) (newline)
+(display (right-branch m)) (newline)
+
+(define (total-weight mobile)
+    (let ((w 0) (lb (left-branch mobile))  (rb (right-branch mobile)))
+        (if (null? lb) 
+            (+ w 0)
+            (+ w (branch-weight lb))
+        )
+        (if (null? rb)
+            (+ w 0)
+            (+ w (branch-weight rb))
+        )
+    ) 
+)
+(define (branch-weight branch)
+    (let ((l (car branch)) (s (cadr branch)))
+        (if (pair? s) 
+            (total-weight s)
+            s 
+        )
+    )
+)
+
+(display (total-weight m)) (newline)
